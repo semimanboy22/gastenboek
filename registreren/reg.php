@@ -35,12 +35,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($username === '' || $password === '' || $passwordConfirm === '') {
       $error = 'Vul gebruikersnaam en wachtwoord in.';
+    } elseif (strlen($username) < 1) {
+      $error = 'Gebruikersnaam moet minimaal 1 teken hebben.';
+    } elseif (strlen($username) > 255) {
+      $error = 'Gebruikersnaam mag maximaal 255 tekens hebben.';
+    } elseif (strlen($password) < 1) {
+      $error = 'Wachtwoord moet minimaal 1 teken hebben.';
+    } elseif (strlen($password) > 255) {
+      $error = 'Wachtwoord mag maximaal 255 tekens hebben.';
     } elseif ($password !== $passwordConfirm) {
       $error = 'De wachtwoorden komen niet overeen.';
-    } elseif (strlen($username) < 3) {
-      $error = 'Gebruikersnaam moet minimaal 3 tekens hebben.';
-    } elseif (strlen($password) < 6) {
-      $error = 'Wachtwoord moet minimaal 6 tekens hebben.';
     } else {
       try {
         $checkStmt = $pdo->prepare('SELECT id FROM users WHERE username = ? LIMIT 1');
@@ -91,22 +95,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <form action="" method="post" class="message-form">
     <h1>Registreren</h1>
 
-    <?php if ($error !== ''): ?>
-      <div class="error"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div>
-    <?php endif; ?>
-
     <?php if ($success !== ''): ?>
       <div class="info"><?= htmlspecialchars($success, ENT_QUOTES, 'UTF-8') ?></div>
     <?php endif; ?>
 
     <label for="uname"><b>Username</b></label>
-    <input type="text" id="uname" placeholder="Enter Username" name="uname" value="<?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?>" required>
+    <input type="text" id="uname" placeholder="Enter Username" name="uname" value="<?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?>" maxlength="255" required>
 
     <label for="psw"><b>Password</b></label>
-    <input type="password" id="psw" placeholder="Enter Password" name="psw" required>
+    <input type="password" id="psw" placeholder="Enter Password" name="psw" maxlength="255" required>
 
     <label for="psw_confirm"><b>Confirm Password</b></label>
-    <input type="password" id="psw_confirm" placeholder="Confirm Password" name="psw_confirm" required>
+    <input type="password" id="psw_confirm" placeholder="Confirm Password" name="psw_confirm" maxlength="255" required>
 
     <button type="submit">Account maken</button>
     <p><a href="../inlogen/login.php">Terug naar login</a></p>

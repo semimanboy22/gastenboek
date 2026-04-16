@@ -569,6 +569,9 @@ body.create-message-page .create-message-form input[type="file"] {
 
 .message-text {
 	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+	word-break: break-word;
+	hyphens: auto;
 	line-height: 1.5;
 	color: #fff;
 }

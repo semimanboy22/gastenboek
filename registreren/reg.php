@@ -11,20 +11,6 @@ $error = '';
 $success = '';
 $username = '';
 
-try {
-  $pdo->exec(
-    "CREATE TABLE IF NOT EXISTS users (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      username VARCHAR(255) NOT NULL,
-      password VARCHAR(255) NOT NULL,
-      xp INT NOT NULL,
-      `profile-picture` VARCHAR(255) NULL
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
-  );
-} catch (Throwable $e) {
-  $error = 'Database fout.';
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (!empty($_SESSION['account_created_this_session'])) {
     $error = 'In deze browsersessie is al een account aangemaakt. Sluit je browser en probeer later opnieuw.';

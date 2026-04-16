@@ -1,6 +1,7 @@
 html {
-	height: 100%;
-	overflow: hidden;
+	min-height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 /* From: index.php */
@@ -11,8 +12,9 @@ body {
 	background-size: cover;
 	background-position: center top;
 	background-attachment: fixed;
-	height: 100%;
-	overflow: hidden;
+	min-height: 100vh;
+	overflow-x: hidden;
+	overflow-y: auto;
 	margin: 0;
 	padding: 0 0 40px;
 	color: #1f2937;
@@ -25,6 +27,8 @@ body.leaderboard-page {
 	background-position: center center;
 	background-attachment: fixed;
 	min-height: 100vh;
+	overflow-x: hidden;
+	overflow-y: auto;
 	color: #eefcf1;
 }
 
@@ -53,11 +57,12 @@ body.leaderboard-page > * {
 }
 
 .header-bar {
-	height: 86px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0 26px;
+	gap: 16px;
+	min-height: 86px;
+	padding: 14px 26px;
 	background: linear-gradient(90deg, #195324 0%, #103d1b 45%, #0d2f17 100%);
 }
 
@@ -118,6 +123,8 @@ body.leaderboard-page > * {
 .header-nav {
 	display: flex;
 	align-items: center;
+	justify-content: flex-end;
+	flex-wrap: wrap;
 	gap: 40px;
 }
 
@@ -588,6 +595,7 @@ body.create-message-page .create-message-form input[type="file"] {
 .message-actions {
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 	gap: 10px;
 	margin-top: 12px;
 }
@@ -653,7 +661,7 @@ body.create-message-page .create-message-form input[type="file"] {
 
 @media (max-width: 760px) {
 	body {
-		padding: 104px 0 24px;
+		padding: 96px 0 24px;
 	}
 
 	body.leaderboard-page {
@@ -661,7 +669,7 @@ body.create-message-page .create-message-form input[type="file"] {
 	}
 
 	.wrap {
-		margin-top: 150px;
+		margin-top: 144px;
 		padding: 12px 12px 0;
 	}
 
@@ -759,8 +767,11 @@ body.create-message-page .create-message-form input[type="file"] {
 	}
 
 	.header-bar {
-		height: 78px;
-		padding: 0 14px;
+		min-height: 0;
+		flex-direction: column;
+		justify-content: center;
+		padding: 12px 14px 14px;
+		gap: 10px;
 	}
 
 	.logo-wrap img {
@@ -773,11 +784,30 @@ body.create-message-page .create-message-form input[type="file"] {
 	}
 
 	.header-nav {
-		gap: 12px;
+		justify-content: center;
+		gap: 8px 16px;
 	}
 
 	.header-nav a {
-		font-size: 24px;
+		font-size: 22px;
+	}
+
+	.message {
+		padding: 10px;
+	}
+
+	.message-meta-row {
+		align-items: flex-start;
+	}
+
+	.message-actions {
+		align-items: stretch;
+	}
+
+	.message-action-link,
+	.message-action-delete {
+		width: 100%;
+		text-align: center;
 	}
 
 	.message-layout {
@@ -798,6 +828,45 @@ body.create-message-page .create-message-form input[type="file"] {
 
 	.message-date-time {
 		text-align: left;
+	}
+}
+
+@media (max-width: 480px) {
+	body {
+		padding-top: 88px;
+	}
+
+	.wrap {
+		margin-top: 132px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	.header-nav a {
+		font-size: 18px;
+	}
+
+	.header-bar {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	.message-image {
+		max-width: 100%;
+	}
+
+	.message-text {
+		font-size: 18px;
+	}
+
+	.leaderboard-layout {
+		padding-left: 8px;
+		padding-right: 8px;
+	}
+
+	.leaderboard-row,
+	.leaderboard-self-row {
+		gap: 8px;
 	}
 }
 

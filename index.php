@@ -81,7 +81,8 @@ try {
 		<?php endif; ?>
 		<nav class="header-nav" aria-label="Hoofdmenu">
 			<a href="<?= htmlspecialchars($headerMessagesHref, ENT_QUOTES, 'UTF-8') ?>">messages</a>
-			<a href="leaderbord.php">leaderboard</a>
+			<a href="leaderbord.php">leaderboard</a>			
+			<a href="messages-maken/index.php">bericht plaatsen</a>
 			<?php if ($isLoggedIn): ?>
 				<a href="inlogen/logout.php">logout</a>
 			<?php else: ?>

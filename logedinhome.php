@@ -78,7 +78,7 @@ try {
 		<nav class="header-nav" aria-label="Hoofdmenu">
 			<a href="logedinhome.php">messages</a>
 			<a href="leaderbord.php">leaderboard</a>
-			<a href="messages-maken/index.php">bericht plaatsen</a>
+			<a href="messages-maken/bericht-plaatsen.php">bericht plaatsen</a>
 			<a href="inlogen/logout.php">logout</a>
 		</nav>
 	</div>

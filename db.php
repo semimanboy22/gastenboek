@@ -1,8 +1,8 @@
 <?php
-$host   = getenv('DB_HOST') ?: 'localhost';
-$user   = getenv('DB_USER') ?: 'klas4s25_605528';
-$pass   = getenv('DB_PASSWORD') ?: 'JvPMLwUY';
-$dbname = getenv('DB_NAME') ?: 'klas4s25_605528';
+$host   = 'localhost';
+$user   = 'klas4s25_605528';
+$pass   = 'JvPMLwUY';
+$dbname = 'klas4s25_605528';
 
 try {
     $pdo = new PDO(

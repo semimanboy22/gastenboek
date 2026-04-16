@@ -5,7 +5,7 @@ require_once __DIR__ . '/../xp.php';
 
 function redirect_with_query($query)
 {
-    header("Location: index.php?" . $query);
+    header("Location: bericht-plaatsen.php?" . $query);
     exit;
 }
 

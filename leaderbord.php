@@ -98,12 +98,12 @@ $otherUsers = array_slice($users, 3);
 			<?php if ($isLoggedIn): ?>
 				<a href="logedinhome.php">messages</a>
 				<a href="leaderbord.php">leaderboard</a>
-				<a href="messages-maken/index.php">bericht plaatsen</a>
+				<a href="messages-maken/bericht-plaatsen.php">bericht plaatsen</a>
 				<a href="inlogen/logout.php">uitloggen</a>
 			<?php else: ?>
 				<a href="index.php">messages</a>
 				<a href="leaderbord.php">leaderboard</a>
-				<a href="messages-maken/index.php">bericht plaatsen</a>
+				<a href="messages-maken/bericht-plaatsen.php">bericht plaatsen</a>
 				<a href="inlogen/login.php">login</a>
 			<?php endif; ?>
 		</nav>

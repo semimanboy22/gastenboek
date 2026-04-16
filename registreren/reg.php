@@ -37,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $error = 'Vul gebruikersnaam en wachtwoord in.';
     } elseif (strlen($username) < 1) {
       $error = 'Gebruikersnaam moet minimaal 1 teken hebben.';
-    } elseif (strlen($username) > 255) {
-      $error = 'Gebruikersnaam mag maximaal 255 tekens hebben.';
+    } elseif (strlen($username) > 21) {
+      $error = 'Gebruikersnaam mag maximaal 21 tekens hebben.';
     } elseif (strlen($password) < 1) {
       $error = 'Wachtwoord moet minimaal 1 teken hebben.';
     } elseif (strlen($password) > 255) {

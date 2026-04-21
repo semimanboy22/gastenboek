@@ -1,3 +1,4 @@
+<?php
 try {
 	$allUsersStmt = $pdo->query('SELECT username, xp FROM users ORDER BY xp DESC, username ASC');
 	$allUsers = $allUsersStmt->fetchAll(PDO::FETCH_ASSOC);
@@ -30,16 +31,6 @@ if ($isLoggedIn && isset($_SESSION['user_id'])) {
 }
 
 try {
-	$pdo->exec(
-		"CREATE TABLE IF NOT EXISTS users (
-			id INT AUTO_INCREMENT PRIMARY KEY,
-			username VARCHAR(255) NOT NULL,
-			password VARCHAR(255) NOT NULL,
-			xp INT NOT NULL,
-			`profile-picture` VARCHAR(255) NULL
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
-	);
-
 	$allUsersStmt = $pdo->query('SELECT username, xp FROM users ORDER BY xp DESC, username ASC');
 	$allUsers = $allUsersStmt->fetchAll(PDO::FETCH_ASSOC);
 	$users = array_slice($allUsers, 0, 10);

@@ -39,19 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($checkStmt->fetch(PDO::FETCH_ASSOC)) {
           $error = 'Deze gebruikersnaam bestaat al.';
         } else {
-          $passwordCheckStmt = $pdo->query('SELECT password FROM users');
-          $passwordAlreadyUsed = false;
-          while ($existingUser = $passwordCheckStmt->fetch(PDO::FETCH_ASSOC)) {
-            $storedPassword = (string)($existingUser['password'] ?? '');
-            if ($storedPassword !== '' && (password_verify($password, $storedPassword) || hash_equals($storedPassword, $password))) {
-              $passwordAlreadyUsed = true;
-              break;
-            }
-          }
-
-          if ($passwordAlreadyUsed) {
-            $error = 'Dit wachtwoord wordt al gebruikt door een ander account.';
-          } else {
           $passwordHash = password_hash($password, PASSWORD_DEFAULT);
           $insertStmt = $pdo->prepare('INSERT INTO users (username, password, xp, `profile-picture`) VALUES (?, ?, 0, NULL)');
           $insertStmt->execute([$username, $passwordHash]);
@@ -59,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $_SESSION['account_created_this_session'] = true;
           $success = 'Account aangemaakt. Je kunt nu inloggen.';
           $username = '';
-          }
         }
       } catch (Throwable $e) {
         $error = 'Database fout.';

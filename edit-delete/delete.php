@@ -1,7 +1,14 @@
 <?php
+ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+
 require_once __DIR__ . '/auth.php';
 
-$userId = resolve_current_user_id($pdo);
+
+if (isset($_SESSION['user_id'])){
+$userId = $_SESSION['user_id'];
+}
+
+
 if ($userId === null) {
     header('Location: ../inlogen/login.php');
     exit;

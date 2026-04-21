@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/auth.php';
 
-$userId = resolve_current_user_id($pdo);
+$userId = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null;
 if ($userId === null) {
     header('Location: ../inlogen/login.php');
     exit;

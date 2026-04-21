@@ -1,18 +1,8 @@
-<?php
-session_start();
-require_once __DIR__ . '/db.php';
-
-$isLoggedIn = isset($_SESSION['username']);
-$errors = [];
-$users = [];
-$myPlace = null;
-$myXp = null;
-$cssVersion = (string)@filemtime(__DIR__ . '/styles.css');
-$currentUserProfilePicture = '';
-$headerAvatarSrc = $isLoggedIn ? 'images/downloads (4).png' : 'images/logo-gastenboek.png';
-
-if ($isLoggedIn && !isset($_SESSION['user_id'])) {
-	$currentUsername = trim((string)($_SESSION['username'] ?? ''));
+try {
+	$allUsersStmt = $pdo->query('SELECT username, xp FROM users ORDER BY xp DESC, username ASC');
+	$allUsers = $allUsersStmt->fetchAll(PDO::FETCH_ASSOC);
+	$users = array_slice($allUsers, 0, 10);
+} catch (Throwable $e) {
 	if ($currentUsername !== '') {
 		$userIdStmt = $pdo->prepare('SELECT id FROM users WHERE username = ? LIMIT 1');
 		$userIdStmt->execute([$currentUsername]);

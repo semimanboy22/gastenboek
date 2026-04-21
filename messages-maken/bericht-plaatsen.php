@@ -33,7 +33,7 @@ try {
         $headerAvatarSrc = '../' . $currentUserProfilePicture;
     }
 } catch (Throwable $e) {
-    // Keep the default logo if the avatar lookup fails.
+    
 }
 ?>
 <!DOCTYPE html>

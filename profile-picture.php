@@ -89,16 +89,6 @@ $currentAvatarSrc = 'images/downloads (4).png';
 $cssVersion = (string)@filemtime(__DIR__ . '/styles.css');
 
 try {
-	$pdo->exec(
-		"CREATE TABLE IF NOT EXISTS users (
-			id INT AUTO_INCREMENT PRIMARY KEY,
-			username VARCHAR(255) NOT NULL,
-			password VARCHAR(255) NOT NULL,
-			xp INT NOT NULL,
-			`profile-picture` VARCHAR(255) NULL
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
-	);
-
 	$profileStmt = $pdo->prepare('SELECT `profile-picture` AS profile_picture FROM users WHERE id = ? LIMIT 1');
 	$profileStmt->execute([$currentUserId]);
 	$currentUser = $profileStmt->fetch(PDO::FETCH_ASSOC);

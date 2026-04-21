@@ -39,17 +39,6 @@ if ($isLoggedIn && $currentUserId > 0) {
 }
 
 try {
-	$pdo->exec(
-		"CREATE TABLE IF NOT EXISTS messages (
-			id INT AUTO_INCREMENT PRIMARY KEY,
-			`user-id` INT NOT NULL,
-			message TEXT NOT NULL,
-			image VARCHAR(255) NULL,
-			`post-date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-			image_path VARCHAR(255) NULL
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
-	);
-
 	$messagesStmt = $pdo->query('SELECT messages.id, messages.`user-id` AS user_id, users.username AS name, users.`profile-picture` AS profile_picture, messages.message, messages.image, messages.image_path, messages.`post-date` AS created_at FROM messages LEFT JOIN users ON users.id = messages.`user-id` ORDER BY messages.id DESC LIMIT 100');
 	$messages = $messagesStmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (Throwable $e) {

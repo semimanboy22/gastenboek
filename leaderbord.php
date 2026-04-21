@@ -1,25 +1,38 @@
 <?php
-try {
-	$allUsersStmt = $pdo->query('SELECT username, xp FROM users ORDER BY xp DESC, username ASC');
-	$allUsers = $allUsersStmt->fetchAll(PDO::FETCH_ASSOC);
-	$users = array_slice($allUsers, 0, 10);
-} catch (Throwable $e) {
-	if ($currentUsername !== '') {
+session_start();
+require_once __DIR__ . '/db.php';
+
+$errors = [];
+$users = [];
+$topUsers = [];
+$otherUsers = [];
+$isLoggedIn = isset($_SESSION['username']);
+$currentUsername = trim((string)($_SESSION['username'] ?? ''));
+$currentUserId = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0;
+$currentUserProfilePicture = '';
+$headerAvatarSrc = $isLoggedIn ? 'images/downloads (4).png' : 'images/logo-gastenboek.png';
+$cssVersion = (string)@filemtime(__DIR__ . '/styles.css');
+$myPlace = null;
+$myXp = null;
+
+if ($isLoggedIn && $currentUserId <= 0 && $currentUsername !== '') {
+	try {
 		$userIdStmt = $pdo->prepare('SELECT id FROM users WHERE username = ? LIMIT 1');
 		$userIdStmt->execute([$currentUsername]);
 		$currentUser = $userIdStmt->fetch(PDO::FETCH_ASSOC);
 		if ($currentUser && isset($currentUser['id'])) {
-			$_SESSION['user_id'] = (int)$currentUser['id'];
+			$currentUserId = (int)$currentUser['id'];
+			$_SESSION['user_id'] = $currentUserId;
 		}
+	} catch (Throwable $e) {
+		// Fall through and let the page keep using the username only.
 	}
 }
 
-$isLoggedIn = isset($_SESSION['username']) && isset($_SESSION['user_id']);
-
-if ($isLoggedIn && isset($_SESSION['user_id'])) {
+if ($isLoggedIn && $currentUserId > 0) {
 	try {
 		$profileStmt = $pdo->prepare('SELECT `profile-picture` AS profile_picture FROM users WHERE id = ? LIMIT 1');
-		$profileStmt->execute([(int)$_SESSION['user_id']]);
+		$profileStmt->execute([$currentUserId]);
 		$currentUser = $profileStmt->fetch(PDO::FETCH_ASSOC);
 		if ($currentUser && !empty($currentUser['profile_picture'])) {
 			$currentUserProfilePicture = (string)$currentUser['profile_picture'];
@@ -35,8 +48,7 @@ try {
 	$allUsers = $allUsersStmt->fetchAll(PDO::FETCH_ASSOC);
 	$users = array_slice($allUsers, 0, 10);
 
-	if ($isLoggedIn) {
-		$currentUsername = (string)($_SESSION['username'] ?? '');
+	if ($isLoggedIn && $currentUsername !== '') {
 		foreach ($allUsers as $index => $user) {
 			if ((string)$user['username'] === $currentUsername) {
 				$myPlace = $index + 1;
@@ -46,7 +58,7 @@ try {
 		}
 	}
 } catch (Throwable $e) {
-	$errors[] = 'Databasefout: ' . $e->getMessage();
+		$errors[] = 'Databasefout: ' . $e->getMessage();
 }
 
 $topUsers = array_slice($users, 0, 3);
